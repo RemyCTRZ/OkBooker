@@ -1,0 +1,52 @@
+.section {
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: 20px;
+    flex: 1;
+    margin: 1rem;
+    padding: 1rem;
+}
+
+.back {
+    font-size: 1.5rem;
+    color: #eb2e4a;
+    margin-right: .5rem;
+}
+
+.top {
+    flex-direction: row;
+    align-items: center;
+}
+
+.header {
+    color: #222;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.book_list {
+    align-items: center;
+    justify-content: center;
+}
+
+.not_found {
+    color: #c4c4c4;
+}
+
+.bottom {
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.button {
+    background-color: #eb2e4a;
+    border-radius: 5px;
+    width: 45%;
+}
+
+.button_txt {
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    padding: .5rem;
+}

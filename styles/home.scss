@@ -1,0 +1,46 @@
+.section {
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: 20px;
+    flex: 1;
+    margin: 1rem;
+    padding: 1rem;
+}
+
+.greetings {
+    color: #222;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.span {
+    color: #eb2e4a;
+}
+
+.title {
+    color: #444;
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-top: .8rem;
+}
+
+.paragraph {
+    margin-top: .3rem;
+    color: #777;
+}
+
+.button_borrow {
+    background-color: #eb2e4a;
+    padding: .2rem;
+    border-radius: 5px;
+}
+
+.button_txt_borrow {
+    background-color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    padding: 1rem;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #eb2e4a;
+}

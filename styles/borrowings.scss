@@ -25,12 +25,66 @@
 }
 
 .book_list {
+    position: relative;
+    margin-top: 1rem;
+    justify-content: flex-start;
+    flex: 1;
+}
+
+.book_list_empty {
+    position: relative;
     align-items: center;
     justify-content: center;
 }
 
 .not_found {
     color: #c4c4c4;
+}
+
+.book {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #eb2e4a;
+    padding: 1rem;
+    border-radius: 5px;
+    margin-bottom: .5rem;
+}
+
+.book_name {
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+
+.book_author {
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 600;
+}
+
+.lost {
+    color: #eb2e4a;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: .7rem;
+    font-size: 1.5rem;
+}
+
+.lost_box {
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-color: #ff0000;
+    padding: 1rem;
+    z-index: 1000;
+}
+
+.lost_txt {
+    color: #fff;
+    font-size: 5rem;
+    text-align: center;
 }
 
 .bottom {

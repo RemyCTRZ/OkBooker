@@ -7,8 +7,9 @@ import { useNavigate } from 'react-router-native'
 
 export default function Return({ setSelectedSpot, setError, setErrorMessage }) {
 
-    const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
+    const [hasPermission, setHasPermission] = useState(null);
+
     let navigate = useNavigate();
 
     useEffect(() => {
@@ -25,7 +26,7 @@ export default function Return({ setSelectedSpot, setError, setErrorMessage }) {
         let spotName = JSON.parse(data).spotName
         if (!spotName) {
             setError(true)
-            setErrorMessage('No spot found on this QR code')
+            setErrorMessage('No spot found')
         }
         setSelectedSpot(spotName)
         navigate('/return-2')
@@ -52,17 +53,12 @@ export default function Return({ setSelectedSpot, setError, setErrorMessage }) {
                 <Text style={styles.list_item}><Text style={styles.li_number}>3.</Text> Confirm your return on the app</Text>
                 <Text style={styles.list_item}><Text style={styles.li_number}>4.</Text> Place back the book in the shelf at the spot</Text>
             </View>
-            <View style={styles.bottom}>
-                <Text style={styles.guideline}>Scan the spot</Text>
-                <View style={styles.scan}>
-                    <BarCodeScanner
-                        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-                        style={styles.scanQR}
-                        height={250} width={250}
-                    />
-                    {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
-                </View>
-            </View>
+            <Text style={styles.guideline}>Scan the spot</Text>
+            <BarCodeScanner
+                onBarCodeScanned={scanned ? undefined : handleBarCodeScanned} style={styles.scanQR} />
+            {scanned && <Pressable style={styles.scan_pressable} onPress={() => setScanned(false)}>
+                <Text style={styles.scan_btn}>Tap to scan again</Text>
+            </Pressable>}
         </View>
     )
 }

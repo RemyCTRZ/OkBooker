@@ -17,6 +17,7 @@
     "node-sass": "^8.0.0",
     "react": "18.1.0",
     "react-native": "0.70.5",
+    "react-native-reanimated": "^2.12.0",
     "react-native-sass-transformer": "^2.0.0",
     "react-native-vector-icons": "^9.2.0",
     "react-router-native": "^6.8.1"

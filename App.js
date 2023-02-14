@@ -36,20 +36,19 @@ export default function App() {
       <Text style={styles.loading_txt} >Ok Booker !</Text>
     </>
   )
-
   return (
     <Router>
       <LinearGradient colors={['#E0425B', '#661173', '#6E0E61', '#95000B']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.container}>
         <Routes>
           <Route path='/' element={<Home />} loader={<Loader />} />
           <Route path='/borrow' element={<Borrow setSelectedId={setSelectedId} setError={setError} setErrorMessage={setErrorMessage} />} loader={<Loader />} />
-          <Route path='/borrow-2' element={<BorrowScan selectedId={selectedId} setError={setError} setErrorMessage={setErrorMessage} />} loader={<Loader />} />
+          <Route path='/borrow-2' element={<BorrowScan selectedId={selectedId} setError={setError} setErrorMessage={setErrorMessage} setSuccess={setSuccess} setSuccessMessage={setSuccessMessage} />} loader={<Loader />} />
           <Route path='/return' element={<Return setSelectedSpot={setSelectedSpot} setError={setError} setErrorMessage={setErrorMessage} />} loader={<Loader />} />
-          <Route path='/return-2' element={<ReturnScan selectedSpot={selectedSpot} setError={setError} setErrorMessage={setErrorMessage} />} loader={<Loader />} />
+          <Route path='/return-2' element={<ReturnScan selectedSpot={selectedSpot} setError={setError} setErrorMessage={setErrorMessage} setSuccess={setSuccess} setSuccessMessage={setSuccessMessage} />} loader={<Loader />} />
           <Route path='/borrowings' element={<Borrowings />} loader={<Loader />} />
         </Routes>
-        {success && <Success successMessage={successMessage} />}
-        {error && <Error errorMessage={errorMessage} />}
+        {success && <Success successMessage={successMessage} success={success} setSuccess={setSuccess} />}
+        {error && <Error errorMessage={errorMessage} error={error} setError={setError} />}
         <Navbar />
         <StatusBar style="inverted" />
       </LinearGradient>

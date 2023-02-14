@@ -3,6 +3,7 @@
     background-color: #fff;
     border-radius: 20px;
     flex: 1;
+    max-height: 80%;
     margin: 1rem;
     padding: 1rem;
 }
@@ -31,38 +32,53 @@
     margin-top: .8rem;
 }
 
-.list_item {
+.list_item,
+.list_item_done {
     margin-top: .4rem;
     margin-left: .7rem;
     color: #777;
+}
+
+.list_item_done {
+    text-decoration: line-through;
 }
 
 .li_number {
     font-weight: 700;
 }
 
-.scan {
-    border-radius: 20px;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    padding: 1rem;
+.member {
+    color: #eb2e4a;
 }
 
-.bottom {
-    margin-top: .5rem;
-    background-color: #eb2e4a;
-    border-radius: 20px;
+.scanQR {
+    flex: 1;
 }
 
 .guideline {
     text-align: center;
     font-weight: 600;
     font-size: 1.4rem;
-    color: #fff;
-    padding: .5rem .5rem 0 .5rem;
+    color: #eb2e4a;
+    text-decoration: underline;
+    padding: 1rem;
 }
 
 .error {
     color: #eb2e4a;
+}
+
+.scan_pressable {
+    background-color: #eb2e4a;
+    border-radius: 5px;
+    margin-top: .5rem;
+    width: 10rem;
+    align-self: center;
+}
+
+.scan_btn {
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    padding: .5rem 1rem;
 }

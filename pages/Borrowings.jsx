@@ -1,9 +1,9 @@
-import { useState } from 'react'
 import { Pressable, Text, View } from 'react-native'
-import styles from '../styles/borrowings.scss'
-import Icon from 'react-native-vector-icons/Ionicons'
-import IconFA from 'react-native-vector-icons/MaterialCommunityIcons'
 import { Link, useNavigate } from 'react-router-native'
+import { useState } from 'react'
+import styles from '../styles/borrowings.scss'
+import IconFA from 'react-native-vector-icons/MaterialCommunityIcons'
+import Icon from 'react-native-vector-icons/Ionicons'
 
 export default function Borrowings() {
 

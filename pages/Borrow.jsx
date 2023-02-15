@@ -1,27 +1,58 @@
 import { View, Text, Pressable } from 'react-native'
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { useNavigate } from 'react-router-native'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '../styles/borrow.scss'
 import Icon from 'react-native-vector-icons/Ionicons'
+import axios from 'axios'
 
-export default function Borrow({ setError, setErrorMessage, setSelectedId }) {
+export default function Borrow({ setError, setErrorMessage, setMember, URL }) {
 
     const [scanned, setScanned] = useState(false);
+    const [hasPermission, setHasPermission] = useState(false)
     let navigate = useNavigate();
+
+    useEffect(() => {
+        const getBarCodeScannerPermissions = async () => {
+            const { status } = await BarCodeScanner.requestPermissionsAsync();
+            setHasPermission(status === 'granted');
+        };
+
+        getBarCodeScannerPermissions();
+    }, []);
 
     const handleBarCodeScanned = ({ data }) => {
         setScanned(true);
         let memberId = JSON.parse(data).memberId
-        if (!memberId) {
+        let memberName = JSON.parse(data).memberName
+        if (!memberId || !memberName) {
             setErrorMessage('No member found')
             setError(true)
         }
         else {
-            setSelectedId(memberId)
-            navigate('/borrow-2')
+            axios.post(`${URL}/login`, {
+                code: memberId,
+                name: memberName,
+            })
+                .then(() => {
+                    setMember({
+                        code: memberId,
+                        name: memberName
+                    })
+                    navigate('/borrow-2')
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
         }
     };
+
+    if (hasPermission === null) {
+        return <Text style={styles.error}>Requesting for camera permission</Text>;
+    }
+    if (hasPermission === false) {
+        return <Text style={styles.error}>No access to camera</Text>;
+    }
 
     return (
         <View style={styles.section}>

@@ -1,9 +1,9 @@
-import { View, Text, Button, Pressable } from 'react-native'
-import styles from '../styles/return.scss'
-import { BarCodeScanner } from 'expo-barcode-scanner';
+import { View, Text, Pressable } from 'react-native'
 import { useState, useEffect } from 'react';
-import Icon from 'react-native-vector-icons/Ionicons'
+import { BarCodeScanner } from 'expo-barcode-scanner';
 import { useNavigate } from 'react-router-native'
+import styles from '../styles/return.scss'
+import Icon from 'react-native-vector-icons/Ionicons'
 
 export default function Return({ setSelectedSpot, setError, setErrorMessage }) {
 
@@ -21,16 +21,17 @@ export default function Return({ setSelectedSpot, setError, setErrorMessage }) {
         getBarCodeScannerPermissions();
     }, []);
 
-    const handleBarCodeScanned = ({ type, data }) => {
+    const handleBarCodeScanned = ({ data }) => {
         setScanned(true);
         let spotName = JSON.parse(data).spotName
         if (!spotName) {
             setError(true)
             setErrorMessage('No spot found')
         }
-        setSelectedSpot(spotName)
-        navigate('/return-2')
-        setScanned(false);
+        else {
+            setSelectedSpot(spotName)
+            navigate('/return-2')
+        }
     };
 
     if (hasPermission === null) {

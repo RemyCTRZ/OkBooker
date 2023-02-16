@@ -37,12 +37,6 @@ export default function ReturnScan({ selectedSpot, setError, setBook, setConfirm
         }
     }
 
-    useEffect(() => {
-        setTimeout(() => {
-            setScannerShow(true)
-        }, 1)
-    })
-
     return (
         <View style={styles.section}>
             <View style={styles.top}>

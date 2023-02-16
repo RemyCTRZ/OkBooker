@@ -35,11 +35,17 @@ export default function Return({ setSelectedSpot, setError }) {
 
     if (hasPermission === null) {
         return (
-            <Text style={styles.error}>Requesting for camera permission</Text>
+            <View style={styles.error_box}>
+                <Text style={styles.error}>Requesting for camera permission</Text>
+            </View>
         );
     }
     if (hasPermission === false) {
-        return <Text style={styles.error}>No access to camera</Text>;
+        return (
+            <View style={styles.error_box}>
+                <Text style={styles.error}>No access to camera</Text>
+            </View>
+        );
     }
 
     return (

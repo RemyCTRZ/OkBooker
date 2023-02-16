@@ -1,7 +1,7 @@
 import { View, Text, Pressable } from 'react-native'
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { useNavigate } from 'react-router-native'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '../styles/borrow.scss'
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -22,6 +22,7 @@ export default function BorrowScan({ setError, member, setConfirmDialog, URL, se
         else {
             axios.get(`${URL}/books/${bookId}`)
                 .then((response) => {
+                    setScannerShow(false)
                     setBook({
                         id: response.data.result._id,
                         title: response.data.result.title
@@ -36,12 +37,6 @@ export default function BorrowScan({ setError, member, setConfirmDialog, URL, se
                 })
         }
     }
-
-    useEffect(() => {
-        setTimeout(() => {
-            setScannerShow(true)
-        }, 1)
-    })
 
     return (
         <View style={styles.section}>

@@ -1,18 +1,19 @@
 .section {
-    position: relative;
     justify-content: space-between;
     background-color: #fff;
     border-radius: 20px;
     flex: 1;
-    max-height: 80%;
     margin: 1rem;
-    padding: 1rem;
 }
 
 .header {
     color: #222;
     font-weight: 700;
     font-size: 1.5rem;
+}
+
+.top {
+    margin: 1rem;
 }
 
 .top_container {
@@ -54,15 +55,15 @@
 
 .scanQR {
     flex: 1;
+    margin: 1.5rem;
 }
 
 .guideline {
     text-align: center;
-    font-weight: 600;
+    font-weight: 800;
     font-size: 1.4rem;
     color: #eb2e4a;
     text-decoration: underline;
-    padding: 1rem;
 }
 
 .error {
@@ -70,6 +71,8 @@
 }
 
 .scan_pressable {
+    position: absolute;
+    bottom: 2rem;
     background-color: #eb2e4a;
     border-radius: 5px;
     margin-top: .5rem;

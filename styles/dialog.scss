@@ -1,0 +1,58 @@
+.allScreen {
+    position: absolute;
+    height: 110%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(34, 34, 34, 0.8);
+}
+
+.dialog {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 2rem;
+}
+
+.dialog_txt {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.dialog_title {
+    color: #eb2e4a;
+    font-weight: 800;
+}
+
+.dialog_btns {
+    padding-top: 2rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.dialog_btn_yes {
+    padding: .3rem .5rem;
+    background-color: #eb2e4a;
+    border-radius: 5px;
+}
+
+.dialog_btn_txt_yes {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.dialog_btn_no {
+    padding: .3rem .5rem;
+    border-radius: 5px;
+}
+
+.dialog_btn_txt_no {
+    color: #eb2e4a;
+    font-weight: 700;
+    font-size: 1.3rem;
+}

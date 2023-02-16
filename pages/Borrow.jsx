@@ -6,7 +6,7 @@ import styles from '../styles/borrow.scss'
 import Icon from 'react-native-vector-icons/Ionicons'
 import axios from 'axios'
 
-export default function Borrow({ setError, setErrorMessage, setMember, URL }) {
+export default function Borrow({ setError, setMember, URL }) {
 
     const [scanned, setScanned] = useState(false);
     const [hasPermission, setHasPermission] = useState(false)
@@ -24,25 +24,19 @@ export default function Borrow({ setError, setErrorMessage, setMember, URL }) {
     const handleBarCodeScanned = ({ data }) => {
         setScanned(true);
         let memberId = JSON.parse(data).memberId
-        let memberName = JSON.parse(data).memberName
-        if (!memberId || !memberName) {
-            setErrorMessage('No member found')
-            setError(true)
+        if (!memberId) {
+            setError('Invalid QR code')
         }
         else {
-            axios.post(`${URL}/login`, {
-                code: memberId,
-                name: memberName,
+            axios.post(`${URL}/login/QR`, {
+                code: memberId
             })
-                .then(() => {
-                    setMember({
-                        code: memberId,
-                        name: memberName
-                    })
+                .then((response) => {
+                    setMember(response.data.data[0])
                     navigate('/borrow-2')
                 })
-                .catch((error) => {
-                    console.log(error)
+                .catch(() => {
+                    setError('Wrong credentials')
                 })
         }
     };

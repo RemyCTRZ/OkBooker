@@ -4,12 +4,12 @@ import Icon from 'react-native-vector-icons/Entypo'
 import Animated, { Keyframe } from 'react-native-reanimated'
 import { useEffect } from 'react'
 
-export default function Success({ successMessage, success, setSuccess }) {
+export default function Success({ success, setSuccess }) {
 
     useEffect(() => {
         setTimeout(() => {
-            setSuccess(false)
-        }, 1000)
+            setSuccess()
+        }, 2000)
     }, [success])
 
     const keyframe = new Keyframe({
@@ -22,9 +22,9 @@ export default function Success({ successMessage, success, setSuccess }) {
     })
 
     return (
-        <Animated.View exiting={keyframe.duration(1000)} style={styles.section}>
+        <Animated.View exiting={keyframe.duration(2000)} style={styles.section}>
             <Icon style={styles.icon} name='check' />
-            <Text style={styles.title}>{successMessage}</Text>
+            <Text style={styles.title}>{success}</Text>
         </Animated.View>
     )
 }

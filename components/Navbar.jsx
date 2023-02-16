@@ -8,7 +8,7 @@ export default function Navbar() {
         <View style={styles.navbar}>
             <Link to='/return' style={styles.button}>
                 <>
-                    <Icon style={styles.icon} name='arrow-left' />
+                    <Icon style={styles.icon} name='download' />
                     <Text style={styles.txt}>Return</Text>
                 </>
             </Link>

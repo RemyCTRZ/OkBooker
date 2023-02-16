@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-native'
 import styles from '../styles/return.scss'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-export default function Return({ setSelectedSpot, setError, setErrorMessage }) {
+export default function Return({ setSelectedSpot, setError }) {
 
     const [scanned, setScanned] = useState(false);
     const [hasPermission, setHasPermission] = useState(null);
@@ -25,8 +25,7 @@ export default function Return({ setSelectedSpot, setError, setErrorMessage }) {
         setScanned(true);
         let spotName = JSON.parse(data).spotName
         if (!spotName) {
-            setError(true)
-            setErrorMessage('No spot found')
+            setError('Invalid QR code')
         }
         else {
             setSelectedSpot(spotName)
@@ -35,7 +34,9 @@ export default function Return({ setSelectedSpot, setError, setErrorMessage }) {
     };
 
     if (hasPermission === null) {
-        return <Text style={styles.error}>Requesting for camera permission</Text>;
+        return (
+            <Text style={styles.error}>Requesting for camera permission</Text>
+        );
     }
     if (hasPermission === false) {
         return <Text style={styles.error}>No access to camera</Text>;
@@ -57,9 +58,10 @@ export default function Return({ setSelectedSpot, setError, setErrorMessage }) {
             <Text style={styles.guideline}>Scan the spot</Text>
             <BarCodeScanner
                 onBarCodeScanned={scanned ? undefined : handleBarCodeScanned} style={styles.scanQR} />
-            {scanned && <Pressable style={styles.scan_pressable} onPress={() => setScanned(false)}>
-                <Text style={styles.scan_btn}>Tap to scan again</Text>
-            </Pressable>}
+            {scanned &&
+                <Pressable style={styles.scan_pressable} onPress={() => setScanned(false)}>
+                    <Text style={styles.scan_btn}>Tap to scan again</Text>
+                </Pressable>}
         </View>
     )
 }

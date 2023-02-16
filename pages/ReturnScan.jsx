@@ -1,13 +1,14 @@
 import { View, Text, Pressable } from 'react-native'
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { useNavigate } from 'react-router-native'
-import { useState } from 'react';
-import styles from '../styles/returnscan.scss'
+import { useEffect, useState } from 'react';
+import styles from '../styles/return.scss'
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/Ionicons'
 
-export default function ReturnScan({ selectedSpot, setError, setSuccess, setSuccessMessage, bookTitle, setBookTitle, confirmDialog, setConfirmDialog, URL }) {
+export default function ReturnScan({ selectedSpot, setError, setBook, setConfirmDialog, URL }) {
 
+    const [scannerShow, setScannerShow] = useState(false)
     const [scanned, setScanned] = useState(false);
     let navigate = useNavigate();
 
@@ -15,34 +16,32 @@ export default function ReturnScan({ selectedSpot, setError, setSuccess, setSucc
         setScanned(true);
         let bookId = JSON.parse(data).bookId
         if (!bookId) {
-            setError(true)
-            setErrorMessage('No book found')
+            setError('Invalid QR code')
         }
         else {
             axios.get(`${URL}/books/${bookId}`)
                 .then((response) => {
-                    console.log(response)
-                    setBookTitle(response.result.title)
-                    setConfirmDialog(true)
+                    setScannerShow(false)
+                    setBook({
+                        id: response.data.result._id,
+                        title: response.data.result.title
+                    })
+                    setConfirmDialog({
+                        borrow: false,
+                        return: true,
+                    })
                 })
-                .catch((error) => {
-                    console.log(error)
+                .catch(() => {
+                    setError('No book found')
                 })
         }
     }
 
-    const confirm = () => {
-        axios.put(`${URL}/borrow/${bookId}`, {
-            location: selectedSpot
-        })
-            .then(
-                setSuccessMessage(`${bookTitle} successfully returned !`),
-                setSuccess(true)
-            )
-            .catch((error) => {
-                console.log(error)
-            })
-    }
+    useEffect(() => {
+        setTimeout(() => {
+            setScannerShow(true)
+        }, 1)
+    })
 
     return (
         <View style={styles.section}>
@@ -61,23 +60,11 @@ export default function ReturnScan({ selectedSpot, setError, setSuccess, setSucc
                 <Text style={styles.list_item}><Text style={styles.li_number}>4.</Text> Place back the book in the shelf at the spot</Text>
             </View>
             <Text style={styles.guideline}>Scan the book</Text>
-            <BarCodeScanner
-                onBarCodeScanned={scanned ? undefined : handleBarCodeScanned} style={styles.scanQR} />
+            {scannerShow && <BarCodeScanner
+                onBarCodeScanned={scanned ? undefined : handleBarCodeScanned} style={styles.scanQR} />}
             {scanned && <Pressable style={styles.scan_pressable} onPress={() => setScanned(false)}>
                 <Text style={styles.scan_btn}>Tap to scan again</Text>
             </Pressable>}
-            {confirmDialog && bookTitle &&
-                <View style={styles.dialog}>
-                    <Text style={styles.dialog_txt}>Borrow {bookTitle} ?</Text>
-                    <View style={styles.dialog_btns}>
-                        <Pressable style={styles.dialog_btn_yes} onPress={confirm}>
-                            <Text style={styles.dialog_btn_txt_yes}>Yes</Text>
-                        </Pressable>
-                        <Pressable style={styles.dialog_btn_no} onPress={() => navigate('/borrowings')}>
-                            <Text style={styles.dialog_btn_txt_no}>No</Text>
-                        </Pressable>
-                    </View>
-                </View>}
         </View>
     )
 };

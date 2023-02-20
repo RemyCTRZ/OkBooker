@@ -12,9 +12,8 @@ import Return from './pages/Return';
 import ReturnScan from './pages/ReturnScan';
 import Success from './components/Success';
 import Error from './components/Error';
-import styles from './App.scss'
 import Dialog from "./components/Dialog";
-
+import styles from './App.scss'
 
 export default function App() {
 
@@ -31,17 +30,21 @@ export default function App() {
 
     const [confirmDialog, setConfirmDialog] = useState()
 
+
+    const [scanReload, setScanReload] = useState(true)
+
+
     return (
         <Router>
             <LinearGradient colors={['#E0425B', '#661173', '#6E0E61', '#95000B']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.container}>
                 <Routes>
-                    <Route path='/' element={<Home />} loader={<Loader />} />
-                    <Route path='/borrow' element={<Borrow member={member} setMember={setMember} setError={setError} URL={URL} />} loader={<Loader />} />
-                    <Route path='/borrow-2' element={<BorrowScan setBook={setBook} member={member} setError={setError} setSuccess={setSuccess} confirmDialog={confirmDialog} setConfirmDialog={setConfirmDialog} URL={URL} />} loader={<Loader />} />
-                    <Route path='/return' element={<Return setSelectedSpot={setSelectedSpot} setError={setError} />} loader={<Loader />} />
-                    <Route path='/return-2' element={<ReturnScan setBook={setBook} selectedSpot={selectedSpot} setError={setError} setSuccess={setSuccess} confirmDialog={confirmDialog} setConfirmDialog={setConfirmDialog} URL={URL} />} loader={<Loader />} />
-                    <Route path='/borrowings' element={<Borrowings URL={URL} />} loader={<Loader />} />
-                    <Route path='*' element={<h1>Page does not exist</h1>} loader={<Loader />} />
+                    <Route path='/' element={<Home />} />
+                    <Route path='/borrow' element={<Borrow member={member} setMember={setMember} setError={setError} URL={URL} setScanReload={setScanReload} scanReload={scanReload} />} />
+                    <Route path='/borrow-2' element={<BorrowScan setBook={setBook} member={member} setError={setError} setSuccess={setSuccess} confirmDialog={confirmDialog} setConfirmDialog={setConfirmDialog} URL={URL} scanReload={scanReload} setScanReload={setScanReload} />} />
+                    <Route path='/return' element={<Return setSelectedSpot={setSelectedSpot} setError={setError} setScanReload={setScanReload} scanReload={scanReload} />} />
+                    <Route path='/return-2' element={<ReturnScan setBook={setBook} selectedSpot={selectedSpot} setError={setError} setSuccess={setSuccess} confirmDialog={confirmDialog} setConfirmDialog={setConfirmDialog} URL={URL} setScanReload={setScanReload} scanReload={scanReload} />} />
+                    <Route path='/borrowings' element={<Borrowings URL={URL} member={member} />} />
+                    <Route path='*' element={<h1>Page does not exist</h1>} />
                 </Routes>
                 <StatusBar style="inverted" />
                 {confirmDialog && <Dialog setSuccess={setSuccess} setError={setError} confirmDialog={confirmDialog} setConfirmDialog={setConfirmDialog} selectedSpot={selectedSpot} member={member} URL={URL} book={book} />}

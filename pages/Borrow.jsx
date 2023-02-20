@@ -6,7 +6,7 @@ import styles from '../styles/borrow.scss'
 import Icon from 'react-native-vector-icons/Ionicons'
 import axios from 'axios'
 
-export default function Borrow({ setError, setMember, URL }) {
+export default function Borrow({ setError, setMember, URL, setScanReload, scanReload }) {
 
     const [scanned, setScanned] = useState(false);
     const [hasPermission, setHasPermission] = useState(false)
@@ -24,6 +24,7 @@ export default function Borrow({ setError, setMember, URL }) {
     const handleBarCodeScanned = ({ data }) => {
         setScanned(true);
         let memberId = JSON.parse(data).memberId
+        setScanReload(!scanReload)
         if (!memberId) {
             setError('Invalid QR code')
         }
@@ -70,8 +71,11 @@ export default function Borrow({ setError, setMember, URL }) {
                 <Text style={styles.list_item}><Text style={styles.li_number}>4.</Text> Enjoy your book anywhere on the go !</Text>
             </View>
             <Text style={styles.guideline}>Scan your card</Text>
-            <BarCodeScanner
-                onBarCodeScanned={scanned ? undefined : handleBarCodeScanned} style={styles.scanQR} />
+            {scanReload ?
+                <BarCodeScanner onBarCodeScanned={scanned ? undefined : handleBarCodeScanned} style={styles.scanQR} />
+                :
+                <Text>Sa charge fdp</Text>
+            }
             {scanned && <Pressable style={styles.scan_pressable} onPress={() => setScanned(false)}>
                 <Text style={styles.scan_btn}>Tap to scan again</Text>
             </Pressable>}

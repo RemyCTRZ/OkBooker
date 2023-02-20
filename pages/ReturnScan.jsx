@@ -6,22 +6,27 @@ import styles from '../styles/return.scss'
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/Ionicons'
 
-export default function ReturnScan({ selectedSpot, setError, setBook, setConfirmDialog, URL }) {
+export default function ReturnScan({ selectedSpot, setError, setBook, setConfirmDialog, URL, scanReload, setScanReload }) {
 
-    const [scannerShow, setScannerShow] = useState(false)
     const [scanned, setScanned] = useState(false);
+
     let navigate = useNavigate();
+    useEffect(() => {
+        setTimeout(() => {
+            setScanReload(!scanReload)
+        }, 100)
+    }, []);
 
     const handleBarCodeScanned = ({ data }) => {
         setScanned(true);
         let bookId = JSON.parse(data).bookId
+        setScanReload(!scanReload)
         if (!bookId) {
             setError('Invalid QR code')
         }
         else {
             axios.get(`${URL}/books/${bookId}`)
                 .then((response) => {
-                    setScannerShow(false)
                     setBook({
                         id: response.data.result._id,
                         title: response.data.result.title
@@ -54,8 +59,11 @@ export default function ReturnScan({ selectedSpot, setError, setBook, setConfirm
                 <Text style={styles.list_item}><Text style={styles.li_number}>4.</Text> Place back the book in the shelf at the spot</Text>
             </View>
             <Text style={styles.guideline}>Scan the book</Text>
-            {scannerShow && <BarCodeScanner
-                onBarCodeScanned={scanned ? undefined : handleBarCodeScanned} style={styles.scanQR} />}
+            {scanReload ?
+                <BarCodeScanner onBarCodeScanned={scanned ? undefined : handleBarCodeScanned} style={styles.scanQR} />
+                :
+                <Text>Sa charge fdp</Text>
+            }
             {scanned && <Pressable style={styles.scan_pressable} onPress={() => setScanned(false)}>
                 <Text style={styles.scan_btn}>Tap to scan again</Text>
             </Pressable>}

@@ -6,11 +6,9 @@ import IconFA from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon from 'react-native-vector-icons/Ionicons'
 import axios from 'axios'
 
-export default function Borrowings({ URL }) {
+export default function Borrowings({ URL, member }) {
 
     const [borrowings, setBorrowings] = useState()
-
-    const userId = 'Ff3AF432'
 
     let navigate = useNavigate();
 
@@ -21,7 +19,7 @@ export default function Borrowings({ URL }) {
                 let borrowingsList = []
                 for (let i = 0; i < booksList.length; i++) {
                     let lastBorrow = booksList[i].history.length - 1
-                    if (booksList[i].history[lastBorrow].user == userId && !booksList[i].history[lastBorrow].rendu) borrowingsList.push(booksList[i])
+                    if (booksList[i].history[lastBorrow].user == member.code && !booksList[i].history[lastBorrow].rendu) borrowingsList.push(booksList[i])
                 }
                 if (borrowingsList.length > 0) setBorrowings(borrowingsList)
             })

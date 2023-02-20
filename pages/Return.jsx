@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-native'
 import styles from '../styles/return.scss'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-export default function Return({ setSelectedSpot, setError }) {
+export default function Return({ setSelectedSpot, setError, scanReload, setScanReload }) {
 
     const [scanned, setScanned] = useState(false);
     const [hasPermission, setHasPermission] = useState(null);
@@ -24,6 +24,7 @@ export default function Return({ setSelectedSpot, setError }) {
     const handleBarCodeScanned = ({ data }) => {
         setScanned(true);
         let spotName = JSON.parse(data).spotName
+        setScanReload(!scanReload)
         if (!spotName) {
             setError('Invalid QR code')
         }
@@ -62,8 +63,13 @@ export default function Return({ setSelectedSpot, setError }) {
                 <Text style={styles.list_item}><Text style={styles.li_number}>4.</Text> Place back the book in the shelf at the spot</Text>
             </View>
             <Text style={styles.guideline}>Scan the spot</Text>
-            <BarCodeScanner
-                onBarCodeScanned={scanned ? undefined : handleBarCodeScanned} style={styles.scanQR} />
+
+            {scanReload ?
+                <BarCodeScanner onBarCodeScanned={scanned ? undefined : handleBarCodeScanned} style={styles.scanQR} />
+                :
+                <Text>Sa charge fdp</Text>
+            }
+
             {scanned &&
                 <Pressable style={styles.scan_pressable} onPress={() => setScanned(false)}>
                     <Text style={styles.scan_btn}>Tap to scan again</Text>

@@ -1,4 +1,5 @@
-import { Text } from 'react-native'
+import { Text, Image } from 'react-native'
+import logo from '../assets/logo.png'
 import styles from '../styles/loader.scss'
 
 export default function Loader() {
